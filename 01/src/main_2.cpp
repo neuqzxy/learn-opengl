@@ -65,7 +65,25 @@ void draw() {
     // 设置绘制模式
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    // 绘制6个顶点
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+void initEBO() {
+    // 索引数组
+    unsigned int indices[] = { // 注意索引从0开始!
+        0, 1, 2, // 第一个三角形
+        1, 2, 3  // 第二个三角形
+    };
+
+    // 生成一个EBO
+    unsigned int EBO;
+    glGenBuffers(1, &EBO);
+
+    // 与VBO类似，我们先绑定EBO然后用glBufferData把索引复制到缓冲里。
+    // 同样，和VBO类似，我们会把这些函数调用放在绑定和解绑函数调用之间，只不过这次我们把缓冲的类型定义为GL_ELEMENT_ARRAY_BUFFER。
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 }
 
 void initVBO() {
@@ -74,7 +92,8 @@ void initVBO() {
         // 位置              // 颜色
         0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // 右下
         -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // 左下
-        0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // 顶部
+        0.0f,  0.5f, 0.0f,  0.0f, 1.0f, 1.0f,    // 顶部
+        -0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f    // 顶点偏左角
     };
 
     glGenBuffers(1, &vbo_0);
@@ -110,6 +129,7 @@ int main() {
 
     initVAO();
     initVBO();
+    initEBO();
 
     shader.use();
 
