@@ -20,14 +20,12 @@ stdint.h
 KHR/khrplatform.h
 -
 
-/Users/zhouxinyu/github/OpenGL-Learn/01/src/main.cpp
+/Users/zhouxinyu/github/OpenGL-Learn/01/src/main_2.cpp
 iostream
 -
 glad/glad.h
 /Users/zhouxinyu/github/OpenGL-Learn/01/src/glad/glad.h
 GLFW/glfw3.h
--
-zconf.h
 -
 Shader.h
 /Users/zhouxinyu/github/OpenGL-Learn/01/src/Shader.h

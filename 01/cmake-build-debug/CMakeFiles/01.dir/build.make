@@ -57,18 +57,18 @@ include CMakeFiles/01.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/01.dir/flags.make
 
-CMakeFiles/01.dir/src/main.cpp.o: CMakeFiles/01.dir/flags.make
-CMakeFiles/01.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/zhouxinyu/github/OpenGL-Learn/01/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/01.dir/src/main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/01.dir/src/main.cpp.o -c /Users/zhouxinyu/github/OpenGL-Learn/01/src/main.cpp
+CMakeFiles/01.dir/src/main_2.cpp.o: CMakeFiles/01.dir/flags.make
+CMakeFiles/01.dir/src/main_2.cpp.o: ../src/main_2.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/zhouxinyu/github/OpenGL-Learn/01/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/01.dir/src/main_2.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/01.dir/src/main_2.cpp.o -c /Users/zhouxinyu/github/OpenGL-Learn/01/src/main_2.cpp
 
-CMakeFiles/01.dir/src/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/01.dir/src/main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/zhouxinyu/github/OpenGL-Learn/01/src/main.cpp > CMakeFiles/01.dir/src/main.cpp.i
+CMakeFiles/01.dir/src/main_2.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/01.dir/src/main_2.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/zhouxinyu/github/OpenGL-Learn/01/src/main_2.cpp > CMakeFiles/01.dir/src/main_2.cpp.i
 
-CMakeFiles/01.dir/src/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/01.dir/src/main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/zhouxinyu/github/OpenGL-Learn/01/src/main.cpp -o CMakeFiles/01.dir/src/main.cpp.s
+CMakeFiles/01.dir/src/main_2.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/01.dir/src/main_2.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/zhouxinyu/github/OpenGL-Learn/01/src/main_2.cpp -o CMakeFiles/01.dir/src/main_2.cpp.s
 
 CMakeFiles/01.dir/src/Shader.cpp.o: CMakeFiles/01.dir/flags.make
 CMakeFiles/01.dir/src/Shader.cpp.o: ../src/Shader.cpp
@@ -98,14 +98,14 @@ CMakeFiles/01.dir/src/glad.c.s: cmake_force
 
 # Object files for target 01
 01_OBJECTS = \
-"CMakeFiles/01.dir/src/main.cpp.o" \
+"CMakeFiles/01.dir/src/main_2.cpp.o" \
 "CMakeFiles/01.dir/src/Shader.cpp.o" \
 "CMakeFiles/01.dir/src/glad.c.o"
 
 # External object files for target 01
 01_EXTERNAL_OBJECTS =
 
-01: CMakeFiles/01.dir/src/main.cpp.o
+01: CMakeFiles/01.dir/src/main_2.cpp.o
 01: CMakeFiles/01.dir/src/Shader.cpp.o
 01: CMakeFiles/01.dir/src/glad.c.o
 01: CMakeFiles/01.dir/build.make

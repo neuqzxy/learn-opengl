@@ -22,7 +22,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/zhouxinyu/github/OpenGL-Learn/01/src/Shader.cpp" "/Users/zhouxinyu/github/OpenGL-Learn/01/cmake-build-debug/CMakeFiles/01.dir/src/Shader.cpp.o"
-  "/Users/zhouxinyu/github/OpenGL-Learn/01/src/main.cpp" "/Users/zhouxinyu/github/OpenGL-Learn/01/cmake-build-debug/CMakeFiles/01.dir/src/main.cpp.o"
+  "/Users/zhouxinyu/github/OpenGL-Learn/01/src/main_2.cpp" "/Users/zhouxinyu/github/OpenGL-Learn/01/cmake-build-debug/CMakeFiles/01.dir/src/main_2.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

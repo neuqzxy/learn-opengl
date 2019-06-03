@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(01)
 
-set(binary src/main.cpp src/Shader.cpp)
+set(binary src/main_2.cpp src/Shader.cpp)
 
 set(CMAKE_CXX_STANDARD 17)
 

@@ -92,7 +92,7 @@
 		<Unit filename="/Users/zhouxinyu/github/OpenGL-Learn/01/src/glad.c">
 			<Option target="01"/>
 		</Unit>
-		<Unit filename="/Users/zhouxinyu/github/OpenGL-Learn/01/src/main.cpp">
+		<Unit filename="/Users/zhouxinyu/github/OpenGL-Learn/01/src/main_2.cpp">
 			<Option target="01"/>
 		</Unit>
 		<Unit filename="/Users/zhouxinyu/github/OpenGL-Learn/01/CMakeLists.txt">
