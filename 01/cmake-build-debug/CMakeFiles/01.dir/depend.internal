@@ -10,9 +10,9 @@ CMakeFiles/01.dir/src/Shader.cpp.o
  .././includes/Shader.h
  .././includes/glad/glad.h
  /Users/zhouxinyu/github/OpenGL-Learn/01/src/Shader.cpp
-CMakeFiles/01.dir/src/main_2.cpp.o
+CMakeFiles/01.dir/src/main.cpp.o
  .././includes/KHR/khrplatform.h
  .././includes/Shader.h
  .././includes/glad/glad.h
- /Users/zhouxinyu/github/OpenGL-Learn/01/src/main_2.cpp
+ /Users/zhouxinyu/github/OpenGL-Learn/01/src/main.cpp
  /usr/local/include/GLFW/glfw3.h

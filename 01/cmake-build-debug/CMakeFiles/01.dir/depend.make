@@ -10,9 +10,9 @@ CMakeFiles/01.dir/src/Shader.cpp.o: .././includes/Shader.h
 CMakeFiles/01.dir/src/Shader.cpp.o: .././includes/glad/glad.h
 CMakeFiles/01.dir/src/Shader.cpp.o: ../src/Shader.cpp
 
-CMakeFiles/01.dir/src/main_2.cpp.o: .././includes/KHR/khrplatform.h
-CMakeFiles/01.dir/src/main_2.cpp.o: .././includes/Shader.h
-CMakeFiles/01.dir/src/main_2.cpp.o: .././includes/glad/glad.h
-CMakeFiles/01.dir/src/main_2.cpp.o: ../src/main_2.cpp
-CMakeFiles/01.dir/src/main_2.cpp.o: /usr/local/include/GLFW/glfw3.h
+CMakeFiles/01.dir/src/main.cpp.o: .././includes/KHR/khrplatform.h
+CMakeFiles/01.dir/src/main.cpp.o: .././includes/Shader.h
+CMakeFiles/01.dir/src/main.cpp.o: .././includes/glad/glad.h
+CMakeFiles/01.dir/src/main.cpp.o: ../src/main.cpp
+CMakeFiles/01.dir/src/main.cpp.o: /usr/local/include/GLFW/glfw3.h
 

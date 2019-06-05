@@ -20,8 +20,10 @@ stdint.h
 KHR/khrplatform.h
 -
 
-/Users/zhouxinyu/github/OpenGL-Learn/01/src/main_2.cpp
+/Users/zhouxinyu/github/OpenGL-Learn/01/src/main.cpp
 iostream
+-
+cmath
 -
 glad/glad.h
 /Users/zhouxinyu/github/OpenGL-Learn/01/src/glad/glad.h

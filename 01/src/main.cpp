@@ -2,6 +2,7 @@
 // Created by 周欣宇 on 2019-06-02.
 //
 #include <iostream>
+#include <cmath>
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
 #include "Shader.h"
@@ -68,6 +69,13 @@ void draw() {
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
+void uniformData(Shader& shader) {
+    float timeValue = glfwGetTime();
+    float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+    int vertexColorLocation = glGetUniformLocation(shader.getID(), "uniformColor");
+    glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+}
+
 void initVBO() {
     u_int vbo_0;
     float aPos[]{
@@ -121,6 +129,8 @@ int main() {
 
         glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        uniformData(shader);
 
         draw();
 
