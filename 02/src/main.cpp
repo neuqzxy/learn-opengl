@@ -13,13 +13,32 @@ void loadTexure() {
     u_char *data = stbi_load("../resources/container.jpg", &width, &height, &nrChannels, 0); // 加载图片
 
     // 生成纹理
-    u_int texture;
+    u_int texture, texture2;
     glGenTextures(1, &texture); // 生成一个纹理
     glBindTexture(GL_TEXTURE_2D, texture); // 绑定到2D纹理缓冲
 
     // 将图片数据传入2D纹理单元中
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
+
+    // 释放图像内存
+    stbi_image_free(data);
+
+    stbi_set_flip_vertically_on_load(true);
+    data = stbi_load("../resources/awesomeface.png", &width, &height, &nrChannels, 0); // 加载图片
+    glGenTextures(1, &texture2); // 生成一个纹理
+    glBindTexture(GL_TEXTURE_2D, texture2); // 绑定到2D纹理缓冲
+
+    // 将图片数据传入2D纹理单元中
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    // 将texture1和GL_TEXTURE0关联，间接关联到纹理0号单元
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    // 将texture2和GL_TEXTURE1关联，间接关联到纹理1号单元
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, texture2);
 
     // 释放图片数据内存
     stbi_image_free(data);
@@ -136,7 +155,7 @@ int main() {
     initWindow(window);
 
     std::string vShaderPath = "../glsl/triangle_v.glsl";
-    std::string fShaderPath = "../glsl/triangle_f.glsl";
+    std::string fShaderPath = "../glsl/triangle_f_2.glsl";
     Shader shader(vShaderPath, fShaderPath);
 
     loadTexure();
@@ -146,6 +165,9 @@ int main() {
     initEBO();
 
     shader.use();
+
+    glUniform1i(glGetUniformLocation(shader.getID(), "texture1"), 0);
+    glUniform1i(glGetUniformLocation(shader.getID(), "texture2"), 1);
 
     activeHC();
 
