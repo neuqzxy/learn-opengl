@@ -17,44 +17,61 @@ extern void draw();
 constexpr unsigned int SCR_WIDTH = 800;
 constexpr unsigned int SCR_HEIGHT = 600;
 
+glm::vec3 positions[]{
+        glm::vec3(0.0f, 1.0f, 1.0f),
+        glm::vec3(0.0f, 1.0f, 2.0f),
+        glm::vec3(1.0f, 2.0f, 1.0f),
+        glm::vec3(-1.0f, 0.0f, 2.0f),
+        glm::vec3(3.0f, 1.0f, 0.0f),
+};
+
 // 观察矩阵（摄像机）参数
 glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
 
-glm::vec3 cubePositions[] = {
-//        glm::vec3( 0.0f,  0.0f,  0.0f),
-        glm::vec3( 2.0f,  5.0f, -15.0f),
-        glm::vec3(-1.5f, -2.2f, -2.5f),
-        glm::vec3(-3.8f, -2.0f, -12.3f),
-        glm::vec3( 2.4f, -0.4f, -3.5f),
-        glm::vec3(-1.7f,  3.0f, -7.5f),
-        glm::vec3( 1.3f, -2.0f, -2.5f),
-        glm::vec3( 1.5f,  2.0f, -2.5f),
-        glm::vec3( 1.5f,  0.2f, -1.5f),
-        glm::vec3(-1.3f,  1.0f, -1.5f)
-};
+// 鼠标位置
+float lastX{400}, lastY{300};
+// 欧拉角
+float pitch{0.0f}, yaw{0.0f};
+// 鼠标滚轮角度
+float fov{0};
 
 void rotate(Shader &shader) {
-    glm::mat4 model{1.0f}, view{1.0f}, projection{1.0f}; // 生成变换矩阵，观察矩阵，透视投影矩阵
+    for (auto pos : positions) {
+        glm::mat4 model{1.0f}, view{1.0f}, projection{1.0f}; // 生成变换矩阵，观察矩阵，透视投影矩阵
 
-    model = glm::rotate(model, glm::radians(-50.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        float step = glfwGetTime();
 
+        model = glm::translate(model, pos);
+
+        model = glm::rotate(model, glm::radians(50.0f), pos);
+
+        // 通过鼠标偏移设置cameraFront
+        glm::vec3 front;
+        front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+        front.y = sin(glm::radians(pitch));
+        front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+        cameraFront = glm::normalize(front);
+
+        // 观察矩阵向z轴反方向移动，也就是让场景向前移动
 //    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-    view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
-    projection = glm::perspective(glm::radians(45.0f), float(SCR_WIDTH) / float(SCR_HEIGHT), 0.1f, 100.0f);
+        // 设置透视投影矩阵
+        projection = glm::perspective(glm::radians(45.0f), float(SCR_WIDTH) / float(SCR_HEIGHT), 0.1f, 100.0f);
 
-    // 传递给uniform变量
-    u_int ID{shader.getID()};
-    u_int model_location = glGetUniformLocation(ID, "model");
-    glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model));
-    u_int view_location = glGetUniformLocation(ID, "view");
-    glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view));
-    u_int projection_location = glGetUniformLocation(ID, "projection");
-    glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection));
+        // 传递给uniform变量
+        u_int ID{shader.getID()};
+        u_int model_location = glGetUniformLocation(ID, "model");
+        glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model));
+        u_int view_location = glGetUniformLocation(ID, "view");
+        glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view));
+        u_int projection_location = glGetUniformLocation(ID, "projection");
+        glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection));
 
-    draw();
+        draw();
+    }
 }
 
 void loadTexure() {
@@ -116,6 +133,7 @@ int initWindow(GLFWwindow *&window) {
         glfwTerminate();
         return -1;
     }
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwMakeContextCurrent(window);
 
     // 初始化glad
@@ -151,6 +169,28 @@ void processInput(GLFWwindow *window) {
         cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+}
+
+// 鼠标事件回调
+void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+    float xoffset = xpos - lastX, yoffset = lastY - ypos, sensitivity = 0.05f;
+    lastX = xpos;lastY = ypos;
+
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
+
+    pitch += yoffset;
+    yaw += xoffset;
+    if(pitch > 89.0f)
+        pitch =  89.0f;
+    if(pitch < -89.0f)
+        pitch = -89.0f;
+}
+
+// 鼠标滚轮事件
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    cameraPos += float(yoffset) * cameraFront;
 }
 
 // 绘制draw
@@ -261,11 +301,17 @@ int main() {
     while(!glfwWindowShouldClose(window)) {
         // 读取用户输入，判断是否退出
         processInput(window);
+        // 读取鼠标事件
+        glfwSetCursorPosCallback(window, mouse_callback);
+        // 读取鼠标滚轮事件
+        glfwSetScrollCallback(window, scroll_callback);
 
         glClearColor(0.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         rotate(shader);
+
+//        draw();
 
         // 函数会交换颜色缓冲（它是一个储存着GLFW窗口每一个像素颜色值的大缓冲），它在这一迭代中被用来绘制，并且将会作为输出显示在屏幕上。
         /**
