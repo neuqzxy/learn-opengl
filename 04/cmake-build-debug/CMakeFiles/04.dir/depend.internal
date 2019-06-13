@@ -10,12 +10,12 @@ CMakeFiles/04.dir/src/Shader.cpp.o
  .././include/Shader.h
  .././include/glad/glad.h
  /Users/zhouxinyu/github/OpenGL-Learn/04/src/Shader.cpp
-CMakeFiles/04.dir/src/main.cpp.o
+CMakeFiles/04.dir/src/main_01.cpp.o
  .././include/KHR/khrplatform.h
  .././include/Shader.h
  .././include/glad/glad.h
  .././include/stb_image.h
- /Users/zhouxinyu/github/OpenGL-Learn/04/src/main.cpp
+ /Users/zhouxinyu/github/OpenGL-Learn/04/src/main_01.cpp
  /usr/local/include/GLFW/glfw3.h
  /usr/local/include/glm/./detail/./compute_vector_relational.hpp
  /usr/local/include/glm/./detail/_swizzle.hpp

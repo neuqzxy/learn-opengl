@@ -92,7 +92,7 @@
 		<Unit filename="/Users/zhouxinyu/github/OpenGL-Learn/04/src/glad.c">
 			<Option target="04"/>
 		</Unit>
-		<Unit filename="/Users/zhouxinyu/github/OpenGL-Learn/04/src/main.cpp">
+		<Unit filename="/Users/zhouxinyu/github/OpenGL-Learn/04/src/main_01.cpp">
 			<Option target="04"/>
 		</Unit>
 		<Unit filename="/Users/zhouxinyu/github/OpenGL-Learn/04/src/stb_image.cpp">

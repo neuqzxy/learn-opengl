@@ -177,32 +177,32 @@ src/glad.c.s:
 	$(MAKE) -f CMakeFiles/04.dir/build.make CMakeFiles/04.dir/src/glad.c.s
 .PHONY : src/glad.c.s
 
-src/main.o: src/main.cpp.o
+src/main_01.o: src/main_01.cpp.o
 
-.PHONY : src/main.o
+.PHONY : src/main_01.o
 
 # target to build an object file
-src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/04.dir/build.make CMakeFiles/04.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
+src/main_01.cpp.o:
+	$(MAKE) -f CMakeFiles/04.dir/build.make CMakeFiles/04.dir/src/main_01.cpp.o
+.PHONY : src/main_01.cpp.o
 
-src/main.i: src/main.cpp.i
+src/main_01.i: src/main_01.cpp.i
 
-.PHONY : src/main.i
+.PHONY : src/main_01.i
 
 # target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/04.dir/build.make CMakeFiles/04.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
+src/main_01.cpp.i:
+	$(MAKE) -f CMakeFiles/04.dir/build.make CMakeFiles/04.dir/src/main_01.cpp.i
+.PHONY : src/main_01.cpp.i
 
-src/main.s: src/main.cpp.s
+src/main_01.s: src/main_01.cpp.s
 
-.PHONY : src/main.s
+.PHONY : src/main_01.s
 
 # target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/04.dir/build.make CMakeFiles/04.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
+src/main_01.cpp.s:
+	$(MAKE) -f CMakeFiles/04.dir/build.make CMakeFiles/04.dir/src/main_01.cpp.s
+.PHONY : src/main_01.cpp.s
 
 src/stb_image.o: src/stb_image.cpp.o
 
@@ -246,9 +246,9 @@ help:
 	@echo "... src/glad.o"
 	@echo "... src/glad.i"
 	@echo "... src/glad.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
+	@echo "... src/main_01.o"
+	@echo "... src/main_01.i"
+	@echo "... src/main_01.s"
 	@echo "... src/stb_image.o"
 	@echo "... src/stb_image.i"
 	@echo "... src/stb_image.s"

@@ -52,23 +52,7 @@ intrin.h
 arm_neon.h
 -
 
-/Users/zhouxinyu/github/OpenGL-Learn/04/src/Shader.cpp
-iostream
--
-glad/glad.h
--
-string
--
-fstream
--
-sstream
--
-iostream
--
-Shader.h
-/Users/zhouxinyu/github/OpenGL-Learn/04/src/Shader.h
-
-/Users/zhouxinyu/github/OpenGL-Learn/04/src/main.cpp
+/Users/zhouxinyu/github/OpenGL-Learn/04/src/main_01.cpp
 iostream
 -
 cmath
@@ -89,10 +73,6 @@ glm/gtc/matrix_transform.hpp
 -
 glm/gtc/type_ptr.hpp
 -
-
-/Users/zhouxinyu/github/OpenGL-Learn/04/src/stb_image.cpp
-stb_image.h
-/Users/zhouxinyu/github/OpenGL-Learn/04/src/stb_image.h
 
 /usr/local/include/GLFW/glfw3.h
 stddef.h

@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/04.dir/src/main.cpp.o"
+  "CMakeFiles/04.dir/src/main_01.cpp.o"
   "CMakeFiles/04.dir/src/Shader.cpp.o"
   "CMakeFiles/04.dir/src/stb_image.cpp.o"
   "CMakeFiles/04.dir/src/glad.c.o"

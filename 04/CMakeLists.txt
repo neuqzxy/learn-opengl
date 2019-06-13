@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 project(04)
-set(binary src/main.cpp src/Shader.cpp src/stb_image.cpp)
+set(binary src/main_01.cpp src/Shader.cpp src/stb_image.cpp)
 
 set(CMAKE_CXX_STANDARD 14)
 
