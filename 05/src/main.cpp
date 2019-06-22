@@ -24,7 +24,7 @@ struct Cube {
 
 Cube cubes[]{
         {{1.0f, 0.5f, 0.31f}, glm::vec3(0.0f,  0.0f, -1.0f)},
-        {{1.0f, 1.0f, 1.0f}, glm::vec3(3.0f, 0.0f, -5.0f)}
+        {{1.0f, 0.5f, 1.0f}, glm::vec3(3.0f, 0.0f, -5.0f)}
 };
 
 void rotate(Shader &cubeShader, Shader &lightShader) {
@@ -36,10 +36,6 @@ void rotate(Shader &cubeShader, Shader &lightShader) {
 
     // 传递给uniform变量
     u_int cubeID{cubeShader.getID()}, lightID{lightShader.getID()};
-    u_int view_location = glGetUniformLocation(cubeID, "view");
-    glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view));
-    u_int projection_location = glGetUniformLocation(cubeID, "projection");
-    glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection));
 
     // 渲染cube和light
     for (int i = 0; i < sizeof(cubes)/sizeof(cubes[0]); i++) {
@@ -48,11 +44,21 @@ void rotate(Shader &cubeShader, Shader &lightShader) {
         model = glm::translate(model, cube.position);
         model = glm::rotate(model, glm::radians(-50.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         if (i == 0) {
+            cubeShader.use(); // 在设置uniform之前必须要use一下
+            u_int view_location = glGetUniformLocation(cubeID, "view");
+            glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view));
+            u_int projection_location = glGetUniformLocation(cubeID, "projection");
+            glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection));
             u_int model_location = glGetUniformLocation(cubeID, "model");
             glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model));
             glUniform3f(glGetUniformLocation(cubeID, "aColor"), cube.color[0], cube.color[1], cube.color[2]);
             glUniform3f(glGetUniformLocation(cubeID, "lightColor"), cubes[1].color[0], cubes[1].color[1], cubes[1].color[2]);
         } else {
+            lightShader.use(); // 在设置uniform之前必须要use一下
+            u_int view_location = glGetUniformLocation(lightID, "view");
+            glUniformMatrix4fv(view_location, 1, GL_FALSE, glm::value_ptr(view));
+            u_int projection_location = glGetUniformLocation(lightID, "projection");
+            glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection));
             u_int model_location = glGetUniformLocation(lightID, "model");
             glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model));
             glUniform3f(glGetUniformLocation(lightID, "aColor"), cube.color[0], cube.color[1], cube.color[2]);
@@ -200,10 +206,6 @@ int main() {
 
     initVAO();
     initVBO();
-
-    cubeShader.use();
-    lightShader.use();
-
     activeHC();
 
     if (window == nullptr) {
