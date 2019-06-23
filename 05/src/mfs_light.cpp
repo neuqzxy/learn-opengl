@@ -54,7 +54,6 @@ void rotate(Shader &cubeShader, Shader &lightShader) {
             glUniform3f(glGetUniformLocation(cubeID, "aColor"), cube.color[0], cube.color[1], cube.color[2]);
             glUniform3f(glGetUniformLocation(cubeID, "lightColor"), cubes[1].color[0], cubes[1].color[1], cubes[1].color[2]);
             glUniform3f(glGetUniformLocation(cubeID, "lightPos"), cubes[1].position.x, cubes[1].position.y, cubes[1].position.z);
-            std::cout<<"x: "<<cubes[1].position.x<<", y: "<<cubes[1].position.y<<", z: "<<cubes[1].position.z<<std::endl;
         } else {
             float time = glfwGetTime();
             int r = 3;
