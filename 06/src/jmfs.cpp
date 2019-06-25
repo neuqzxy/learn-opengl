@@ -60,18 +60,18 @@ void rotate(Shader &cubeShader, Shader &lightShader) {
             glUniformMatrix4fv(projection_location, 1, GL_FALSE, glm::value_ptr(projection));
             u_int model_location = glGetUniformLocation(cubeID, "model");
             glUniformMatrix4fv(model_location, 1, GL_FALSE, glm::value_ptr(model));
-            glUniform3f(glGetUniformLocation(cubeID, "aColor"), cube.color[0], cube.color[1], cube.color[2]);
-            glUniform3f(glGetUniformLocation(cubeID, "lightColor"), cubes[1].color[0], cubes[1].color[1], cubes[1].color[2]);
+//            glUniform3f(glGetUniformLocation(cubeID, "aColor"), cube.color[0], cube.color[1], cube.color[2]);
+//            glUniform3f(glGetUniformLocation(cubeID, "lightColor"), cubes[1].color[0], cubes[1].color[1], cubes[1].color[2]);
 //            glUniform3f(glGetUniformLocation(cubeID, "lightPos"), cubes[1].position.x, cubes[1].position.y, cubes[1].position.z);
             glUniform3f(glGetUniformLocation(cubeID, "viewPos"), -viewPos[0], -viewPos[1], -viewPos[2]); // 因为view和摄像机的位置是相反的
 
             glUniform3f(glGetUniformLocation(cubeID, "material.ambient"), 1.0f, 0.5f, 0.31f); // 因为view和摄像机的位置是相反的
-            glUniform3f(glGetUniformLocation(cubeID, "material.diffuse"), 1.0f, 0.5f, 0.31f); // 因为view和摄像机的位置是相反的
+            glUniform3f(glGetUniformLocation(cubeID, "material.diffuse"), cube.color[0], cube.color[1], cube.color[2]); // 因为view和摄像机的位置是相反的
             glUniform3f(glGetUniformLocation(cubeID, "material.specular"), 0.5f, 0.5f, 0.5f); // 因为view和摄像机的位置是相反的
             glUniform1f(glGetUniformLocation(cubeID, "material.shininess"), 32.0f); // 因为view和摄像机的位置是相反的
 
             glUniform3f(glGetUniformLocation(cubeID, "light.ambient"), 0.2f, 0.2f, 0.2f); // 因为view和摄像机的位置是相反的
-            glUniform3f(glGetUniformLocation(cubeID, "light.diffuse"), 0.5f, 0.5f, 0.5f); // 因为view和摄像机的位置是相反的
+            glUniform3f(glGetUniformLocation(cubeID, "light.diffuse"), cubes[1].color[0], cubes[1].color[1], cubes[1].color[2]); // 因为view和摄像机的位置是相反的
             glUniform3f(glGetUniformLocation(cubeID, "light.specular"), 1.0f, 1.0f, 1.0f); // 因为view和摄像机的位置是相反的
             glUniform3f(glGetUniformLocation(cubeID, "light.position"), cubes[1].position.x, cubes[1].position.y, cubes[1].position.z); // 因为view和摄像机的位置是相反的
         } else {
