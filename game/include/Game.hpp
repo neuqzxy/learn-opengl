@@ -13,6 +13,15 @@ enum GameState {
     GAME_WIN
 };
 
+enum Direction {
+    UP,
+    RIGHT,
+    DOWN,
+    LEFT
+};
+
+typedef std::tuple<GLboolean, Direction, glm::vec2> Collision;
+
 /**
  * 游戏类
  */
@@ -32,8 +41,9 @@ public:
     void Init();
     // 碰撞检测
     void DoCollisions();
-    static GLboolean CheckCollision(GameObject& box1, GameObject& box2); // aabb检测碰撞
-    static GLboolean CheckCollision(BallObject& ball, GameObject& box); // aabb球体和矩形碰撞检测
+    static Collision CheckCollision(GameObject& box1, GameObject& box2); // aabb检测碰撞
+    static Collision CheckCollision(BallObject& ball, GameObject& box); // aabb球体和矩形碰撞检测
+    static Direction VectorDirection(const glm::vec2& target); // 获取一个矢量的方向
     // 游戏循环
     void ProcessInput(GLfloat dt);
     void Update(GLfloat dt);
