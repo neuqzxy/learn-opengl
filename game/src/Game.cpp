@@ -3,6 +3,7 @@
 #include "SpriteRender.hpp"
 #include "ResourceManager.hpp"
 #include "GameLevel.hpp"
+#include "BallObject.hpp"
 
 SpriteRender *Renderer;
 
@@ -10,6 +11,13 @@ const glm::vec2 PLAYER_SIZE{100, 20};
 const GLfloat PLAYER_VELOCITY{500.0f};
 
 GameObject * player;
+
+// 初始化球的速度
+const glm::vec2 INITIAL_BALL_VELOCITY(100.0f, -350.0f);
+// 球的半径
+const GLfloat BALL_RADIUS = 12.5f;
+
+BallObject *ball;
 
 Game::Game(GLuint width, GLuint height): State(GAME_ACTIVE), Keys(), Width(width), Height(height) {
 
@@ -47,16 +55,31 @@ void Game::Init() {
             float(Height) - PLAYER_SIZE.y
     );
     player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"), {1.0f, 1.0f, 1.0f}, {0.0f, PLAYER_VELOCITY});
+
+    // 加载ball
+    glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
+    ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("awesomeface"));
 }
 
-void Game::Update(GLfloat dt) {}
+void Game::Update(GLfloat dt) {
+    ball->Move(dt, Width);
+}
 
 void Game::ProcessInput(GLfloat dt) {
     if (Keys[GLFW_KEY_A]) {
         player->Position.x -= dt * PLAYER_VELOCITY;
+        if (ball->Stuck) {
+            ball->Position.x -= dt * PLAYER_VELOCITY;
+        }
     }
     if (Keys[GLFW_KEY_D]) {
         player->Position.x += dt * PLAYER_VELOCITY;
+        if (ball->Stuck) {
+            ball->Position.x += dt * PLAYER_VELOCITY;
+        }
+    }
+    if (Keys[GLFW_KEY_SPACE]) {
+        ball->Stuck = false;
     }
 }
 
@@ -70,6 +93,8 @@ void Game::Render() {
         Levels[Level].Draw(*Renderer);
         // 绘制player
         player->Draw(*Renderer);
+        // 绘制ball
+        ball->Draw(*Renderer);
     }
 //    Renderer->DrawSprite(ResourceManager::GetTexture("awesomeface"), glm::vec2(200, 100), glm::vec2(300, 400), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 }
