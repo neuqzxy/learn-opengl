@@ -2,8 +2,14 @@
 #include "Game.hpp"
 #include "SpriteRender.hpp"
 #include "ResourceManager.hpp"
+#include "GameLevel.hpp"
 
 SpriteRender *Renderer;
+
+const glm::vec2 PLAYER_SIZE{100, 20};
+const GLfloat PLAYER_VELOCITY{500.0f};
+
+GameObject * player;
 
 Game::Game(GLuint width, GLuint height): State(GAME_ACTIVE), Keys(), Width(width), Height(height) {
 
@@ -22,13 +28,48 @@ void Game::Init() {
 
     Shader shader = ResourceManager::GetShader("sprite");
     Renderer = new SpriteRender(shader);
+    // 加载纹理
     ResourceManager::LoadTexture("../resources/awesomeface.png", true, "awesomeface");
+    ResourceManager::LoadTexture("../resources/background.jpg", false, "background");
+    ResourceManager::LoadTexture("../resources/block.png", true, "block");
+    ResourceManager::LoadTexture("../resources/block_solid.png", true, "block_solid");
+    ResourceManager::LoadTexture("../resources/paddle.png", true, "paddle");
+
+    // 加载关卡
+    GameLevel one;
+    one.Load("../levels/one.lvl", Width, int64_t(Height*0.5));
+    Levels.push_back(one);
+    Level = 0;
+
+    // 加载player
+    glm::vec2 playerPos = glm::vec2(
+            float(Width) / 2 - PLAYER_SIZE.x / 2,
+            float(Height) - PLAYER_SIZE.y
+    );
+    player = new GameObject(playerPos, PLAYER_SIZE, ResourceManager::GetTexture("paddle"), {1.0f, 1.0f, 1.0f}, {0.0f, PLAYER_VELOCITY});
 }
 
 void Game::Update(GLfloat dt) {}
 
-void Game::ProcessInput(GLfloat dt) {}
+void Game::ProcessInput(GLfloat dt) {
+    if (Keys[GLFW_KEY_A]) {
+        player->Position.x -= dt * PLAYER_VELOCITY;
+    }
+    if (Keys[GLFW_KEY_D]) {
+        player->Position.x += dt * PLAYER_VELOCITY;
+    }
+}
 
 void Game::Render() {
-    Renderer->DrawSprite(ResourceManager::GetTexture("awesomeface"), glm::vec2(200, 100), glm::vec2(300, 400), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+    if(this->State == GAME_ACTIVE) {
+        // 绘制背景
+        Renderer->DrawSprite(ResourceManager::GetTexture("background"),
+                             glm::vec2(0, 0), glm::vec2(Width, Height), 0.0f
+        );
+        // 绘制关卡
+        Levels[Level].Draw(*Renderer);
+        // 绘制player
+        player->Draw(*Renderer);
+    }
+//    Renderer->DrawSprite(ResourceManager::GetTexture("awesomeface"), glm::vec2(200, 100), glm::vec2(300, 400), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 }

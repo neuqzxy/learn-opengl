@@ -90,7 +90,6 @@ int main() {
 
         // Update Game state
         Breakout.Update(deltaTime);
-//        std::cout<<"deltaTime: "<<deltaTime<<", currentTime: "<<currentFrame<<std::endl;
 
         // Render
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
