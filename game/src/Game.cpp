@@ -61,7 +61,37 @@ void Game::Init() {
     ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("awesomeface"));
 }
 
+GLboolean Game::CheckCollision(GameObject &box1, GameObject &box2) {
+    bool collisionX = box1.Position.x + box1.Size.x >= box2.Position.x && box2.Position.x + box2.Size.x >= box1.Position.x;
+    bool collisionY = box1.Position.y + box1.Size.y >= box2.Position.y && box2.Position.y + box2.Size.y >= box1.Position.y;
+    return collisionX && collisionY;
+}
+
+GLboolean Game::CheckCollision(BallObject &ball, GameObject &box) {
+    const glm::vec2& ballCenter = ball.Position;
+    const glm::vec2& aabbHalfExtents{box.Size.x / 2, box.Size.y / 2};
+    const glm::vec2& boxCenter = box.Position + aabbHalfExtents;
+    // 球体和矩形中心的矢量
+    const glm::vec2 difference = ballCenter - boxCenter;
+    const glm::vec2 clamped = glm::clamp(difference, -aabbHalfExtents, aabbHalfExtents);
+    // 最近的点
+    const glm::vec2 closest = boxCenter + clamped;
+    return glm::length(ballCenter - closest) < ball.Radius;
+}
+
+void Game::DoCollisions() {
+    GameLevel& currentLevel{Levels[Level]}; // 获取当前的关卡
+    for (auto& brick : currentLevel.Bricks) {
+        if (!brick.Destroyed && !brick.IsSolid) {
+            if (CheckCollision(*ball, brick)) {
+                brick.Destroyed = GL_TRUE;
+            }
+        }
+    }
+}
+
 void Game::Update(GLfloat dt) {
+    DoCollisions();
     ball->Move(dt, Width);
 }
 

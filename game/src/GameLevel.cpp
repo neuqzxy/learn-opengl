@@ -69,7 +69,7 @@ void GameLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidt
 
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
-                Bricks.push_back(
+                Bricks.emplace_back(
                         GameObject(pos, size, ResourceManager::GetTexture("block"), color)
                 );
             }
@@ -79,7 +79,7 @@ void GameLevel::init(std::vector<std::vector<GLuint>> tileData, GLuint levelWidt
 
 void GameLevel::Draw(SpriteRender &renderer)
 {
-    for (GameObject &tile : Bricks)
-        if (!tile.Destroyed)
-            tile.Draw(renderer);
+    for (GameObject &brick : Bricks)
+        if (!brick.Destroyed)
+            brick.Draw(renderer);
 }
