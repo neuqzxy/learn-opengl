@@ -4,6 +4,7 @@
 #include "ResourceManager.hpp"
 #include "GameLevel.hpp"
 #include "BallObject.hpp"
+#include "ParticleGenerator.hpp"
 
 SpriteRender *Renderer;
 
@@ -19,6 +20,8 @@ const GLfloat BALL_RADIUS = 12.5f;
 
 BallObject *ball;
 
+ParticleGenerator *particles;
+
 Game::Game(GLuint width, GLuint height): State(GAME_ACTIVE), Keys(), Width(width), Height(height) {
 
 }
@@ -28,11 +31,14 @@ Game::~Game() {}
 // 读取着色器代码，并编译
 // 初始化精灵的VAO和VBO，加载纹理
 void Game::Init() {
-    ResourceManager::LoadShader("../script/sprite.vert", "../script/sprite.frag", nullptr, "sprite").Use();
+    ResourceManager::LoadShader("../script/sprite.vert", "../script/sprite.frag", nullptr, "sprite");
+    ResourceManager::LoadShader("../script/particle.vert", "../script/particle.frag", nullptr, "particle");
     // 向着色器传入数据
     glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
-    ResourceManager::GetShader("sprite").setInt("image", 0);
+    ResourceManager::GetShader("sprite").Use().setInt("image", 0);
     ResourceManager::GetShader("sprite").setMatrix4("projection", projection);
+    ResourceManager::GetShader("particle").Use().setInt("sprite", 0);
+    ResourceManager::GetShader("particle").setMatrix4("projection", projection);
 
     Shader shader = ResourceManager::GetShader("sprite");
     Renderer = new SpriteRender(shader);
@@ -42,6 +48,7 @@ void Game::Init() {
     ResourceManager::LoadTexture("../resources/block.png", true, "block");
     ResourceManager::LoadTexture("../resources/block_solid.png", true, "block_solid");
     ResourceManager::LoadTexture("../resources/paddle.png", true, "paddle");
+    ResourceManager::LoadTexture("../resources/particle.png", true, "particle");
 
     // 加载关卡
     GameLevel one;
@@ -59,6 +66,9 @@ void Game::Init() {
     // 加载ball
     glm::vec2 ballPos = playerPos + glm::vec2(PLAYER_SIZE.x / 2 - BALL_RADIUS, -BALL_RADIUS * 2);
     ball = new BallObject(ballPos, BALL_RADIUS, INITIAL_BALL_VELOCITY, ResourceManager::GetTexture("awesomeface"));
+
+    // 加载particles
+    particles = new ParticleGenerator(ResourceManager::GetShader("particle"), ResourceManager::GetTexture("particle"), 500);
 }
 
 Collision Game::CheckCollision(GameObject &box1, GameObject &box2) {
@@ -156,6 +166,7 @@ Direction Game::VectorDirection(const glm::vec2 &target) {
 void Game::Update(GLfloat dt) {
     DoCollisions();
     ball->Move(dt, Width);
+    particles->Update(dt, *ball, 2, glm::vec2(ball->Radius / 2));
     if (ball->Position.y > Height) {
 
     }
@@ -189,6 +200,8 @@ void Game::Render() {
         Levels[Level].Draw(*Renderer);
         // 绘制player
         player->Draw(*Renderer);
+        // 绘制particles
+        particles->Draw();
         // 绘制ball
         ball->Draw(*Renderer);
     }

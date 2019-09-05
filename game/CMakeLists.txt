@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 
 project(game)
 
-set(sources src/glad.c src/Shader.cpp src/Texture.cpp src/Game.cpp src/stb_image.cpp src/ResourceManager.cpp src/SpriteRender.cpp src/GameObject.cpp src/GameLevel.cpp src/BallObject.cpp)
+set(sources src/glad.c src/Shader.cpp src/Texture.cpp src/Game.cpp src/stb_image.cpp src/ResourceManager.cpp src/SpriteRender.cpp src/GameObject.cpp src/GameLevel.cpp src/BallObject.cpp src/ParticleGenerator.cpp)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(game ${sources} src/main.cpp)
